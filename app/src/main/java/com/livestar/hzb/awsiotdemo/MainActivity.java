@@ -34,15 +34,17 @@ public class MainActivity extends AppCompatActivity {
 
     // IoT endpoint
     // AWS Iot CLI describe-endpoint call returns: XXXXXXXXXX.iot.<region>.amazonaws.com
-    private static final String CUSTOMER_SPECIFIC_ENDPOINT = "CHANGE_ME";
+    private static final String CUSTOMER_SPECIFIC_ENDPOINT = "prefix.iot.us-west-2.amazonaws.com";
     // Cognito pool ID. For this app, pool needs to be unauthenticated pool with
     // AWS IoT permissions.
-    private static final String COGNITO_POOL_ID = "CHANGE_ME";
+    private static final String COGNITO_POOL_ID = "us-west-2:bb7764a7-5fb9-4524-b9d3-f4795a78e809";
     // Name of the AWS IoT policy to attach to a newly created certificate
-    private static final String AWS_IOT_POLICY_NAME = "CHANGE_ME";
+    private static final String AWS_IOT_POLICY_NAME = "arn:aws:iot:us-west-2:862656479404:policy/MyPolicy";
 
     // Region of AWS IoT
-    private static final Regions MY_REGION = Regions.US_EAST_1;
+//    private static final Regions MY_REGION = Regions.US_EAST_1;
+    private static final Regions MY_REGION = Regions.US_WEST_2;
+
     // Filename of KeyStore file on the filesystem
     private static final String KEYSTORE_NAME = "iot_keystore";
     // Password for the private key in the KeyStore
