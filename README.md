@@ -6,6 +6,7 @@ It uses Cognito authentication in conjunction with AWS IoT to create an identity
  and store it in a Java keystore.
 
  This identity is then used to authenticate to AWS IoT.
+ // 一旦连接成功， 就可以订阅和发布消息
  Once a connection to the AWS IoT platform has been established,
  the application presents a simple UI to publish and subscribe over MQTT.
 
@@ -24,20 +25,10 @@ After certificate and private key have been added to the keystore the app will u
       * Browse to the AndroidPubSub directory and press OK.
       * Accept the messages about adding Gradle to the project.
       * If the SDK reports some missing Android SDK packages (like Build Tools or the Android API package), follow the instructions to install them.
-   - If you are using Eclipse:
-      * Go to File -> Import. Import Wizard will open.
-      * Select General -> Existing Projects into Workspace. Click Next.
-      * In Select root directory, browse to the samples directory.
-      * Select the AndroidPubSub project to import.
-      * Click Finish.
-      
-1. Import the libraries :
-   - If you use Android Studio, Gradle will take care of downloading these dependencies for you.
-   - If you use Eclipse, you will need to download the AWS SDK for Android (http://aws.amazon.com/mobile/sdk/) and extract and copy these jars into the 'libs' directory for the project:
-      * aws-android-sdk-core-X.X.X.jar
-      * aws-android-sdk-iot-X.X.X.jar
 
-1. This sample requires Cognito to authorize to AWS IoT in order to create a device certificate. Use Amazon Cognito to create a new identity pool.
+1. This sample requires Cognito to authorize to AWS IoT in order to create a device certificate.
+
+   Use Amazon Cognito to create a new identity pool.
    //创建Identity Pool
     1. In the [Amazon Cognito Console](https://console.aws.amazon.com/cognito/), select`Create Identity Pool`.
 
@@ -50,7 +41,7 @@ After certificate and private key have been added to the keystore the app will u
     //绑定角色
     1. As part of creating the identity pool Cognito will setup two roles in [Identity and Access Management (IAM)](https://console.aws.amazon.com/iam/home#roles).
          These will be named something similar to:`Cognito_PoolNameAuth_Role` and`Cognito_PoolNameUnauth_Role`.
-         // 关联 IoT 政策
+         // 角色附加政策
     1. Now we will attach a policy to the unauthenticated role which has permissions to access the required AWS IoT APIs.
     This is done by first creating an IAM Policy in the [IAM Console](https://console.aws.amazon.com/iam/home#policies) and then attaching it to the unauthenticated role.
     Below is an example policy which can be used with the sample application.
@@ -138,13 +129,14 @@ After certificate and private key have been added to the keystore the app will u
     ```
     The customer specific endpoint, Cognito pool ID, Region and AWS IoT policy name will need to be updated to reflect the values in your account.
 
-    The policy name is the name used when creating the IoT policy above.
+    The policy name is the name used when creating the IoT policy above. // 政策名字就是你在上文中创建的政策
 
      For the other parameters the default values will work for this sample application.
      The following describes these parameters in case they need to be updated going forward past this sample.
      The keystore name is the name used when writing the keystore file to the application's file directory.
      The password is the password given to protect the keystore when written.
       Certificate ID is the alias in the keystore for the certificate and private key entry.
+     // 这是什么意思？？
       If you end up creating a keystore off of the device you will need to update this to match the alias given when importing the certificate into the keystore.
 
 1. Build and run the sample app.
@@ -153,12 +145,15 @@ After certificate and private key have been added to the keystore the app will u
 
 Note: This application also contains commented-out code for acccessing a KeyStore that was deployed as a resource file as part of an APK.
 
-
 ### Creating a Keystore for Use with AWS IoT       //创建一个Keystore
 
-It may be beneficial for your application to use an AWS IoT certificate and private key which were created off of the device.  The following instructions walk through the process of creating a keystore which can be placed on the filesystem of the device and accessed by the Android SDK.
+It may be beneficial for your application to use an AWS IoT certificate and private key which were created off of the device.
 
-The keytool command does not allow importing an existing private key into a keystore.  To work around this we first create a PKCS12 formatted keystore with the certficate and private key and then we convert it to a Java keystore using keytool.
+ The following instructions walk through the process of creating a keystore which can be placed on the filesystem of the device and accessed by the Android SDK.
+
+The keytool command does not allow importing an existing private key into a keystore.
+
+ To work around this we first create a PKCS12 formatted keystore with the certficate and private key and then we convert it to a Java keystore using keytool.
 
 #### Prerequsites
 
@@ -188,4 +183,8 @@ The keytool command does not allow importing an existing private key into a keys
 
         adb push <keystore name>.bks /data/user/0/your_app_dir_goes_here/files/<keystore name>
 
-    The directory and filename used will depend on your use case.  Typically the application's files directory is in /data/user/0/<app namespace>/files/.  You may however choose to locate your keystore on removable media or another space on the filesystem.  The SDK allows for specifying the file path and name of the keystore so the choice is up to you.
+    The directory and filename used will depend on your use case.  Typically the application's files directory is in /data/user/0/<app namespace>/files/.
+
+    You may however choose to locate your keystore on removable media or another space on the filesystem.
+
+    The SDK allows for specifying the file path and name of the keystore so the choice is up to you.
