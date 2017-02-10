@@ -1,14 +1,23 @@
 # Android PubSub Sample
 
-This sample demonstrates use of the AWS IoT APIs to securely publish to and subscribe from MQTT topics.  It uses Cognito authentication in conjunction with AWS IoT to create an identity (client certificate and private key) and store it in a Java keystore.  This identity is then used to authenticate to AWS IoT.  Once a connection to the AWS IoT platform has been established, the application presents a simple UI to publish and subscribe over MQTT.  After certificate and private key have been added to the keystore the app will use these for future connections.
+This sample demonstrates use of the AWS IoT APIs to securely publish to and subscribe from MQTT topics.
+// 认证  keystore
+It uses Cognito authentication in conjunction with AWS IoT to create an identity (client certificate and private key)
+ and store it in a Java keystore.
+
+ This identity is then used to authenticate to AWS IoT.
+ Once a connection to the AWS IoT platform has been established,
+ the application presents a simple UI to publish and subscribe over MQTT.
+
+After certificate and private key have been added to the keystore the app will use these for future connections.
 
 ## Requirements
 
 * AndroidStudio or Eclipse
 * Android API 10 or greater
 
-## Using the Sample
-
+## Using the Sample 使用Demo
+// 导入
 1. Import the AndroidPubSub project into your IDE.
    - If you are using Android Studio:
       * From the Welcome screen, click on "Import project".
@@ -29,12 +38,15 @@ This sample demonstrates use of the AWS IoT APIs to securely publish to and subs
       * aws-android-sdk-iot-X.X.X.jar
 
 1. This sample requires Cognito to authorize to AWS IoT in order to create a device certificate. Use Amazon Cognito to create a new identity pool.
-    1. In the [Amazon Cognito Console](https://console.aws.amazon.com/cognito/), select`Create Identity Pool`.  //创建Identity Pool
-    1. Ensure`Enable access to unauthenticated identities` is checked. This allows the sample application to assume the unauthenticated role associated with this identity pool.
+   //创建Identity Pool
+    1. In the [Amazon Cognito Console](https://console.aws.amazon.com/cognito/), select`Create Identity Pool`.
+
+    1. Ensure`Enable access to unauthenticated identities` is checked.
+           This allows the sample application to assume the unauthenticated role associated with this identity pool.
 
         **Important**: see note below on unauthenticated user access.
-
-    1. Obtain the `PoolID` constant.  This will be used in the application. 绑定PoolID
+     // 绑定PoolID
+    1. Obtain the `PoolID` constant.  This will be used in the application.
     //绑定角色
     1. As part of creating the identity pool Cognito will setup two roles in [Identity and Access Management (IAM)](https://console.aws.amazon.com/iam/home#roles).
          These will be named something similar to:`Cognito_PoolNameAuth_Role` and`Cognito_PoolNameUnauth_Role`.

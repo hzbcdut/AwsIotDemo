@@ -35,14 +35,18 @@ public class MainActivity extends AppCompatActivity {
     // IoT endpoint
     // AWS Iot CLI describe-endpoint call returns: XXXXXXXXXX.iot.<region>.amazonaws.com
     private static final String CUSTOMER_SPECIFIC_ENDPOINT = "prefix.iot.us-west-2.amazonaws.com";
-    // Cognito pool ID. For this app, pool needs to be unauthenticated pool with
-    // AWS IoT permissions.
-    private static final String COGNITO_POOL_ID = "us-west-2:bb7764a7-5fb9-4524-b9d3-f4795a78e809";
-    // Name of the AWS IoT policy to attach to a newly created certificate
-    private static final String AWS_IOT_POLICY_NAME = "arn:aws:iot:us-west-2:862656479404:policy/MyPolicy";
+
+    // Cognito pool ID. For this app, pool needs to be unauthenticated pool with AWS IoT permissions.
+    private static final String COGNITO_POOL_ID = "us-west-2:3a13f6b3-56a6-4e89-a9b3-82293af17fdb";
+
+    // Name of the AWS IoT policy to attach to a newly created certificate   关联新创建的Identity Pool的角色附加的策略的名字
+//    private static final String AWS_IOT_POLICY_NAME = "arn:aws:iot:us-west-2:862656479404:policy/iamPolicy";
+    private static final String AWS_IOT_POLICY_NAME = "AdministratorAccess";
+//    private static final String AWS_IOT_POLICY_NAME = "oneClick_Cognito_hzb_identity_poo101Unauth_Role_1486702249411";
 
     // Region of AWS IoT
 //    private static final Regions MY_REGION = Regions.US_EAST_1;
+
     private static final Regions MY_REGION = Regions.US_WEST_2;
 
     // Filename of KeyStore file on the filesystem
@@ -175,8 +179,7 @@ public class MainActivity extends AppCompatActivity {
                                 new CreateKeysAndCertificateRequest();
                         createKeysAndCertificateRequest.setSetAsActive(true);
                         final CreateKeysAndCertificateResult createKeysAndCertificateResult;
-                        createKeysAndCertificateResult =
-                                mIotAndroidClient.createKeysAndCertificate(createKeysAndCertificateRequest);
+                        createKeysAndCertificateResult = mIotAndroidClient.createKeysAndCertificate(createKeysAndCertificateRequest);
                         Log.i(LOG_TAG,
                                 "Cert ID: " +
                                         createKeysAndCertificateResult.getCertificateId() +
