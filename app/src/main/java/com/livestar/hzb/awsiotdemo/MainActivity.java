@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     // IoT endpoint
     // AWS Iot CLI describe-endpoint call returns: XXXXXXXXXX.iot.<region>.amazonaws.com
-    private static final String CUSTOMER_SPECIFIC_ENDPOINT = "prefix.iot.us-east-1.amazonaws.com";
+    private static final String CUSTOMER_SPECIFIC_ENDPOINT = "a36tzj8xmm0m5o.iot.us-east-1.amazonaws.com";
+
 
     // Cognito pool ID. For this app, pool needs to be unauthenticated pool with AWS IoT permissions.
 //    private static final String COGNITO_POOL_ID = "us-west-2:3a13f6b3-56a6-4e89-a9b3-82293af17fdb";
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     // Name of the AWS IoT policy to attach to a newly created certificate   关联新创建的Identity Pool的角色附加的策略的名字
 //    private static final String AWS_IOT_POLICY_NAME = "arn:aws:iot:us-west-2:862656479404:policy/iamPolicy";
     private static final String AWS_IOT_POLICY_NAME = "AdministratorAccess";
-//    private static final String AWS_IOT_POLICY_NAME = "oneClick_Cognito_hzb_identity_poo101Unauth_Role_1486702249411";
 
     // Region of AWS IoT
     private static final Regions MY_REGION = Regions.US_EAST_1;
