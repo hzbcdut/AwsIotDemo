@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String COGNITO_POOL_ID = "us-east-1:6ef72903-05a9-4f15-9c15-ea05b7fa80dc";
 
     // Name of the AWS IoT policy to attach to a newly created certificate   关联新创建的Identity Pool的角色附加的策略的名字
-//    private static final String AWS_IOT_POLICY_NAME = "arn:aws:iot:us-west-2:862656479404:policy/iamPolicy";
     private static final String AWS_IOT_POLICY_NAME = "AdministratorAccess";
 
     // Region of AWS IoT
