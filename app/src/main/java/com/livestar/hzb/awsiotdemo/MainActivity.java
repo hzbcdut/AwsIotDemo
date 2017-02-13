@@ -60,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
     EditText txtMessage;
 
     TextView tvLastMessage;
+    /**
+     * 客户端ID， 需要唯一， 可以用UID
+     * Demo用UUID
+     */
     TextView tvClientId;
     TextView tvStatus;
 

@@ -164,22 +164,27 @@ The keytool command does not allow importing an existing private key into a keys
 #### Steps
 
 1. Import certificate and private key into PKCS12 keystore.
-
-        openssl pkcs12 -export -out <keystore name>.p12 -inkey <private key file>.pem -in <certificate file>.pem -name <alias name>
+    // 命令
+    openssl pkcs12 -export -out <keystore name>.p12 -inkey <private key file>.pem -in <certificate file>.pem -name <alias name>
     
-    The alias parameter defines the alias of the cert/key in the keystore.  This is used in the SDK to access the correct certificate and private key entry if the keystore contains more than one.  This command will prompt for a password.  This password will be the source password when converting to BKS in the following step.
+    The alias parameter defines the alias of the cert/key in the keystore.
+    This is used in the SDK to access the correct certificate and private key entry if the keystore contains more than one.
+    This command will prompt for a password.  This password will be the source password when converting to BKS in the following step.
 
+// 转换 PKC12秘钥存储方式转换为BKS
 1. Convert PKCS12 keystore to a BKS (BouncyCastle) keystore.
+     // 命令
+      keytool -importkeystore -srckeystore <keystore name>.p12 -srcstoretype pkcs12 -destkeystore <keystore name>.bks -deststoretype bks --provider org.bouncycastle.jce.provider.BouncyCastleProvider -–providerpath path/to/provider/jar/bcprov-jdk15on-146.jar
 
-        keytool -importkeystore -srckeystore <keystore name>.p12 -srcstoretype pkcs12 -destkeystore <keystore name>.bks -deststoretype bks --provider org.bouncycastle.jce.provider.BouncyCastleProvider -–providerpath path/to/provider/jar/bcprov-jdk15on-146.jar
+    This command will prompt for both a destination password and a source password.
+     The source password is the export password given in the previous step.
+     The destination password will be the password required to access the private key in the keystore going forward.  This password will be required inside your application when acccessing the keystore.  You can test the password in the next step.
 
-    This command will prompt for both a destination password and a source password.  The source password is the export password given in the previous step.  The destination password will be the password required to access the private key in the keystore going forward.  This password will be required inside your application when acccessing the keystore.  You can test the password in the next step.
-
-1. List aliases in keystore to verify (optional).
+1. List aliases in keystore to verify (optional). （可选）
 
         keytool -list -v -keystore <keystore name>.bks -storetype bks -storepass <keystore password> -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath path/to/provider/jar/bcprov-jdk15on-146.jar
 
-1. Push to Android Emulator (optional).
+1. Push to Android Emulator (optional). // 推送到Android模拟器（可选）
 
         adb push <keystore name>.bks /data/user/0/your_app_dir_goes_here/files/<keystore name>
 
